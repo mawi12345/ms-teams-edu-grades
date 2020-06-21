@@ -5,6 +5,13 @@ import { push } from 'connected-react-router';
 import Overview from '../components/Overview';
 import { appStateType } from '../reducers/types';
 
+const saveNumber = (a: number) => {
+  if (a && !isNaN(a)) {
+    return a;
+  }
+  return 0;
+};
+
 function mapStateToProps(state: appStateType) {
   const headerRow = Object.values(state.home.raw[0]) as string[];
 
@@ -38,9 +45,16 @@ function mapStateToProps(state: appStateType) {
       results.push(parseInt(studentRow[3 + x * 3], 10));
     }
 
+    const studentSum = results.reduce(
+      (a: number, b: number) => saveNumber(a) + saveNumber(b),
+      0
+    );
+
     students.push({
       first: studentRow[0],
       last: studentRow[1],
+      sum: studentSum,
+      sumPercent: Math.round((studentSum * 100) / sum),
       results
     });
   }

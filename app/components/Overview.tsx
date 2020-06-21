@@ -64,52 +64,69 @@ export default function Overview(props: Props) {
           <div className={`${styles.todo} ${styles.todoSum}`}>
             Summe in % von {data.sum} Punkte
           </div>
-          {data.todos.map(t => (
-            <div key={t.name} className={styles.todo}>
+          {data.todos.map((t, i) => (
+            <div key={i} className={styles.todo}>
               {t.name}
             </div>
           ))}
         </div>
-        {data.students.map(s => {
-          const sumPercent = Math.round(
-            (s.results.reduce(
-              (a: number, b: number) => saveNumber(a) + saveNumber(b),
-              0
-            ) *
-              100) /
-              data.sum
-          );
-          return (
-            <div key={`${s.first}-${s.last}`} className={styles.row}>
-              <div className={styles.name}>
-                {s.first} {s.last}
-              </div>
-              <div
-                className={`${styles.point} ${getPercentStyle(sumPercent)} ${
-                  styles.pointSum
-                }`}
-              >
-                {sumPercent}
-              </div>
-              {s.results.map((r: number, index: number) => {
-                let percent = 0;
-                if (r && !isNaN(r) && data.todos[index].max) {
-                  percent = Math.round((r * 100) / data.todos[index].max);
-                }
-
-                return (
-                  <div
-                    key={index}
-                    className={`${styles.point} ${getPercentStyle(percent)}`}
-                  >
-                    {isNaN(r) ? '-' : r}
-                  </div>
-                );
-              })}
+        {data.students.map(s => (
+          <div key={`${s.first}-${s.last}`} className={styles.row}>
+            <div className={styles.name}>
+              {s.first} {s.last}
             </div>
-          );
-        })}
+            <div
+              className={`${styles.point} ${getPercentStyle(s.sumPercent)} ${
+                styles.pointSum
+              }`}
+            >
+              {s.sumPercent}
+            </div>
+            {s.results.map((r: number, index: number) => {
+              let percent = 0;
+              if (r && !isNaN(r) && data.todos[index].max) {
+                percent = Math.round((r * 100) / data.todos[index].max);
+              }
+
+              return (
+                <div
+                  key={index}
+                  className={`${styles.point} ${getPercentStyle(percent)}`}
+                >
+                  {isNaN(r) ? '-' : r}
+                </div>
+              );
+            })}
+          </div>
+        ))}
       </div>
+      {data.students.map(s => (
+        <div key={`${s.first}-${s.last}`} className={styles.studentPage}>
+          <h1>
+            {s.first} {s.last}
+          </h1>
+          <p>
+            Hat {s.sum} von {data.sum} Punkte erreicht ({s.sumPercent}%).
+          </p>
+          {s.results.map((r: number, index: number) => {
+            const todo = data.todos[index];
+            return (
+              <div key={index} className={styles.detail}>
+                <span className={styles.detailName}>{todo.name}</span>
+                <span className={styles.detailR}>
+                  {todo.max
+                    ? `${Math.round((saveNumber(r) * 100) / todo.max)}%`
+                    : '-'}
+                </span>
+                <span className={styles.detailR}>{isNaN(r) ? '-' : r}</span>
+                <span className={styles.detailSum}>
+                  {todo.max ? todo.max : '-'}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      ))}
     </>
   );
 }

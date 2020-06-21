@@ -67,7 +67,6 @@ const configureStore = (initialState?: appStateType) => {
 
   // Create Store
   const store = createStore(rootReducer, initialState, enhancer);
-
   if (module.hot) {
     module.hot.accept(
       '../reducers',
