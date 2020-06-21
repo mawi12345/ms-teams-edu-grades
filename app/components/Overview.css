@@ -1,0 +1,104 @@
+.backButton {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+}
+
+.printButton {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  cursor: pointer;
+}
+
+@media print {
+  .printButton {
+    display: none;
+  }
+  .backButton {
+    display: none;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+}
+
+.rowheader {
+  display: flex;
+  height: 310px;
+}
+
+.spacer {
+  min-width: 210px;
+}
+
+.name {
+  min-width: 200px;
+  max-width: 200px;
+  text-overflow: ellipsis;
+  text-align: right;
+  height: 40px;
+  line-height: 40px;
+  margin-right: 10px;
+}
+
+.todo {
+  white-space: nowrap;
+  transform: rotate(-90deg) translateX(-280px);
+  width: 40px;
+  height: 0px;
+  line-height: 0px;
+}
+
+.todoSum {
+  width: 60px;
+  transform: rotate(-90deg) translateX(-270px);
+}
+
+.point {
+  min-width: 32px;
+  max-width: 32px;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  background-color: rgb(245, 245, 245);
+  border-radius: 20px;
+  margin: 4px;
+  /* text-shadow: 0px 0px 1px rgb(42, 44, 58); */
+}
+
+.pointSum {
+  margin: 4px 14px;
+  border: 1px solid rgb(9, 11, 19);
+}
+
+
+.point100 {
+  color: rgb(0, 114, 0);
+}
+
+.point80 {
+  color: rgb(80, 114, 0);
+}
+
+.point60 {
+  color: rgb(127, 149, 0);
+}
+
+.point40 {
+  color: rgb(219, 114, 0);
+}
+
+.point20 {
+  color: rgb(226, 72, 0);
+}
+
+.point0 {
+  color: rgb(247, 0, 0);
+}
